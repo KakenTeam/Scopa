@@ -1,0 +1,13 @@
+{
+  "name": "DoAnVDK",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.14.1",
+    "socket.io": "^1.7.3"
+  },
+  "devDependencies": {
+    "ip": "^1.1.4"
+  }
+}
