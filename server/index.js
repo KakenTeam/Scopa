@@ -1,17 +1,20 @@
 const PORT = 3000; //Đặt địa chỉ Port được mở ra để tạo ra chương trình mạng Socket Server
-var express = require('express'),
-  app = express(),
-  http = require('http').Server(app),
-  io = require('socket.io')(http);
-var ip      = require('ip');
-var bodyParser = require('body-parser');
+var express   = require('express'),
+    http      = require('http'),
+    socketIO  = require('socket.io'),
+    ip        = require('ip'),
+    bodyParser = require('body-parser');
+
+var app = express();
+var server = http.createServer(app);
+var io  = socketIO(server);
 
 var { mongoose } = require('./db/mongoose');
 var { User } = require('./models/user');
 
 console.log("Server nodejs chay tai dia chi: " + ip.address() + ":" + PORT)
-http.listen(3000, function () {
-  console.log("On server");
+server.listen(PORT, function () {
+  console.log(`Server is up on ${PORT}`);
 });
 app.use(bodyParser.json());
 
@@ -65,16 +68,16 @@ io.on('connection', function (socket) {
   })
 });
 
-// app.post('/users', (req, res) => {
-//   var user = new User({
-//     username: req.body.username,
-//     password: req.body.password
-//   });
+app.post('/users', (req, res) => {
+  var user = new User({
+    username: req.body.username,
+    password: req.body.password
+  });
   
-//   user.save().then((doc) => {
-//     res.send(doc);
-//   }, (e) => {
-//     res.status(400).send(e);
-//   });
-// });
+  user.save().then((doc) => {
+    res.send(doc);
+  }, (e) => {
+    res.status(400).send(e);
+  });
+});
 
