@@ -87,7 +87,7 @@ app.post('/login', (req, res) => {
   User.findOne(info)
       .then(user => {
         if (!user) {
-          return res.send(404).send();
+          return res.sendStatus(404).send();
         }
         res.send(user);
       })
