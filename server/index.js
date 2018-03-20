@@ -8,6 +8,7 @@ var express   = require('express'),
 var app = express();
 var server = http.createServer(app);
 var io  = socketIO(server);
+var _ = require('lodash');
 
 var { mongoose } = require('./db/mongoose');
 var { User } = require('./models/user');
@@ -81,3 +82,16 @@ app.post('/users', (req, res) => {
   });
 });
 
+app.post('/login', (req, res) => {
+  var info = _.pick(req.body, ['username', 'password']);
+  User.findOne(info)
+      .then(user => {
+        if (!user) {
+          return res.send(404).send();
+        }
+        res.send(user);
+      })
+      .catch((e) => {
+        res.status(404).send(e);
+      })
+});
