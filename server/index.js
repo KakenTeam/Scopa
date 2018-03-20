@@ -1,13 +1,19 @@
-const PORT = 3001; //Đặt địa chỉ Port được mở ra để tạo ra chương trình mạng Socket Server
+const PORT = 3000; //Đặt địa chỉ Port được mở ra để tạo ra chương trình mạng Socket Server
+var express = require('express'),
+  app = express(),
+  http = require('http').Server(app),
+  io = require('socket.io')(http);
+var ip      = require('ip');
+var bodyParser = require('body-parser');
 
-var http = require('http') //#include thư viện http - Tìm thêm về từ khóa http nodejs trên google nếu bạn muốn tìm hiểu thêm. Nhưng theo kinh nghiệm của mình, Javascript trong môi trường NodeJS cực kỳ rộng lớn, khi bạn bí thì nên tìm hiểu không nên ngồi đọc và cố gắng học thuộc hết cái reference (Tài liêu tham khảo) của nodejs làm gì. Vỡ não đó!
-var socketio = require('socket.io') //#include thư viện socketio
+var { mongoose } = require('./db/mongoose');
+var { User } = require('./models/user');
 
-var ip = require('ip');
-var app = http.createServer(); //#Khởi tạo một chương trình mạng (app)
-var io = socketio(app); //#Phải khởi tạo io sau khi tạo app!
-app.listen(PORT); // Cho socket server (chương trình mạng) lắng nghe ở port 3484
 console.log("Server nodejs chay tai dia chi: " + ip.address() + ":" + PORT)
+http.listen(3000, function () {
+  console.log("On server");
+});
+app.use(bodyParser.json());
 
 function ParseJson(jsondata) {
   try {
@@ -58,3 +64,17 @@ io.on('connection', function (socket) {
     clearInterval(interval1) //xóa chu kỳ nhiệm vụ đi, chứ không xóa là cái task kia cứ chạy mãi thôi đó!
   })
 });
+
+// app.post('/users', (req, res) => {
+//   var user = new User({
+//     username: req.body.username,
+//     password: req.body.password
+//   });
+  
+//   user.save().then((doc) => {
+//     res.send(doc);
+//   }, (e) => {
+//     res.status(400).send(e);
+//   });
+// });
+
