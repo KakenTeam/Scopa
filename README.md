@@ -5,4 +5,9 @@
 
 # Dependencies
 `git clone https://github.com/ngohuynhngockhanh/Socket.io-v1.x-Library.git `
-+thư viện socket io
+- thư viện socket io
+
+# How to run nodejs server 
+- go to server folder
+- run `yarn install` or `npm install`
+- how to start server `node index.js`
