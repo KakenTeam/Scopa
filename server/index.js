@@ -1,4 +1,4 @@
-const PORT = 3000; //Đặt địa chỉ Port được mở ra để tạo ra chương trình mạng Socket Server
+const PORT = 3001; //Đặt địa chỉ Port được mở ra để tạo ra chương trình mạng Socket Server
 var express   = require('express'),
     http      = require('http'),
     socketIO  = require('socket.io'),
@@ -95,3 +95,13 @@ app.post('/login', (req, res) => {
         res.status(404).send(e);
       })
 });
+
+app.post('/send-order', (req, res) => {
+  var type_water = req.body.type_drink;
+    var json = {
+      method: "gui nuoc",
+      type_water: type_water
+    }
+  io.sockets.emit('atime', json);
+  res.status(200).send({ message: "Sent successfully"});
+})
