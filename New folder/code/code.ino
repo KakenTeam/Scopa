@@ -2,10 +2,10 @@
 #include <SocketIOClient.h>
 
 SocketIOClient ioClient;
-const char* ssid = "Thanh Trang";
-const char* password = "minhthuan274";
+const char* ssid = "Cafe Sang Chieu";
+const char* password = "trasua123";
 
-char host[] = "192.168.1.2";
+char host[] = "192.168.1.25";
 int port = 3001;
 
 //từ khóa extern: dùng để #include các biến toàn cục ở một số thư viện khác. Trong thư viện SocketIOClient có hai biến toàn cục
@@ -45,6 +45,8 @@ void setup()
         //Thì gửi sự kiện ("connection") đến Socket server ahihi.
         ioClient.send("connection", "message", "Connected !!!!");
     }
+    Serial.println("Set up pin mode 12");
+    pinMode(12, OUTPUT);
 }
 
 void loop()
@@ -63,7 +65,9 @@ void loop()
     //  +RFull: Danh sách tham số được nén thành chuỗi JSON!
     if (ioClient.monitor()) {
         Serial.println(RID);
-        Serial.println(Rfull);
+          digitalWrite(12, HIGH);       // sets the digital pin 13 on
+          delay(5000);
+          digitalWrite(12, LOW);
     }
 
     //Kết nối lại!
