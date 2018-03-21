@@ -2,11 +2,11 @@
 #include <SocketIOClient.h>
 
 SocketIOClient ioClient;
-const char* ssid = "Thanh Trang";
-const char* password = "minhthuan274";
+const char* ssid = "Cafe Trung Nguyen";
+const char* password = "";
 
-char host[] = "192.168.1.2";
-int port = 3001;
+char host[] = "192.168.1.12";
+int port = 3000;
 
 //từ khóa extern: dùng để #include các biến toàn cục ở một số thư viện khác. Trong thư viện SocketIOClient có hai biến toàn cục
 // mà chúng ta cần quan tâm đó là
