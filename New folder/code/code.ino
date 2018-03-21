@@ -2,8 +2,8 @@
 #include <SocketIOClient.h>
 
 SocketIOClient ioClient;
-const char* ssid = "Cafe Trung Nguyen";
-const char* password = "";
+const char* ssid = "Cafe Sang Chieu";
+const char* password = "trasua123";
 
 char host[] = "192.168.1.12";
 int port = 3000;
