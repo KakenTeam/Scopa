@@ -52,7 +52,7 @@ io.on('connection', function (socket) {
   });
 
   socket.on('atime', function (data) {
-    sendTime();
+    // sendTime();
     console.log(data);
   });
 
