@@ -1,4 +1,5 @@
 var mongoose = require('mongoose');
+var Schema = mongoose.Schema;
 
 var User = mongoose.model('User', {
   username: {
@@ -13,7 +14,8 @@ var User = mongoose.model('User', {
     required: true,
     trim: true,
     minlength: 4
-  }
+  },
+  orders: [{ type: Schema.Types.ObjectId, ref: 'Order' }]
 });
 
 module.exports = { User }

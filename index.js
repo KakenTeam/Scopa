@@ -1,4 +1,4 @@
-const PORT = 3001; //Đặt địa chỉ Port được mở ra để tạo ra chương trình mạng Socket Server
+const PORT = process.env.PORT || 3001;
 var express   = require('express'),
     http      = require('http'),
     socketIO  = require('socket.io'),
@@ -12,6 +12,7 @@ var _ = require('lodash');
 
 var { mongoose } = require('./db/mongoose');
 var { User } = require('./models/user');
+var { Order } = require('./models/order');
 
 console.log("Server nodejs chay tai dia chi: " + ip.address() + ":" + PORT)
 server.listen(PORT, function () {
@@ -96,12 +97,35 @@ app.post('/login', (req, res) => {
       })
 });
 
-app.post('/send-order', (req, res) => {
-  var type_water = req.body.type_drink;
-    var json = {
-      method: "gui nuoc",
-      type_water: type_water
+app.post('/orders', (req, res) => {
+  var owner = User.findOne({ _id: req.body.id_user })
+  .exec(function (err, user) {
+    if (err) {
+      console.error('Error retrieving all product by id!');
+    } else {
+      var order = new Order({
+        id_water: req.body.id_water,
+        owner: user._id
+      })
+      order.save(function (err) {
+        console.log(err);
+      });
+      user.orders.push(order);
+      user.save();
+      var json = {
+        method: "gui nuoc",
+        type_water: req.body.id_water
+      }
+      io.sockets.emit('atime', json);
+      res.status(200).send({ message: "Sent successfully" });
     }
-  io.sockets.emit('atime', json);
-  res.status(200).send({ message: "Sent successfully"});
+  })
+})
+
+app.get('/orders', (req, res) => {
+  var orders = Order.find({}).populate('owner', 'username')
+  .exec(function (err, orders) {
+    if (err) return res.sendStatus(400);
+    res.send(orders);
+  });
 })
