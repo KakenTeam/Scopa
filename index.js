@@ -100,7 +100,7 @@ app.post('/orders', (req, res) => {
   var owner = User.findOne({ _id: req.body.id_user })
   .exec(function (err, user) {
     if (err) {
-      console.error('Error retrieving all product by id!');
+      res.status(400).send({ message: 'Not found user'});
     } else {
       var order = new Order({
         id_water: req.body.id_water,
