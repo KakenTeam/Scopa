@@ -63,10 +63,9 @@ io.on('connection', function (socket) {
     });
     console.log(data);
   });
-  //Khi socket client bị mất kết nối thì chạy hàm sau.
+
   socket.on('disconnect', function () {
-    console.log("disconnect") //in ra màn hình console cho vui
-    clearInterval(interval1) //xóa chu kỳ nhiệm vụ đi, chứ không xóa là cái task kia cứ chạy mãi thôi đó!
+    console.log("disconnect with arduino!") 
   })
 });
 
