@@ -11,3 +11,6 @@
 - go to server folder
 - run `yarn install` or `npm install`
 - how to start server `node index.js`
+
+# In production on heroku 
+- Server run on 172.16.27.174:44280
