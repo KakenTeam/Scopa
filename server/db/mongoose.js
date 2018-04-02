@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 
 mongoose.Promise = global.Promise;
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/ScopaApp');
+mongoose.connect('mongodb://thuan274:thuan274@ds231719.mlab.com:31719/scopa_production');
 
 module.exports = { mongoose };
