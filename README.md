@@ -6,6 +6,7 @@
 # Dependencies
 `git clone https://github.com/ngohuynhngockhanh/Socket.io-v1.x-Library.git `
 - thư viện socket io
+`https://github.com/bblanchon/ArduinoJson` thư viện json arduino
 
 # How to run nodejs server 
 - go to server folder
@@ -13,4 +14,4 @@
 - how to start server `node index.js`
 
 # In production on heroku 
-- Server run on 172.16.27.174:44280
+- Server run on scopa-production.herokuapp.com

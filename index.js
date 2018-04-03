@@ -28,40 +28,13 @@ function ParseJson(jsondata) {
   }
 }
 
-function sendTime() {
-
-  //Đây là một chuỗi JSON
-  var json = {
-    name: 'thuan', //kiểu chuỗi
-    ESP8266: 12, //số nguyên
-    soPi: 3.14, //số thực
-    time: new Date() //Đối tượng Thời gian
-  }
-  io.sockets.emit('atime', json);
-}
 //Khi có mệt kết nối được tạo giữa Socket Client và Socket Server
 io.on('connection', function (socket) {
-  //hàm console.log giống như hàm Serial.println trên Arduino
+  
   console.log("Connected"); //In ra màn hình console là đã có một Socket Client kết nối thành công.
-
-  socket.emit('welcome', {
-    message: "Connected !!!"
-  })
 
   socket.on('connection', function (message) {
     console.log(message);
-  });
-
-  socket.on('atime', function (data) {
-    // sendTime();
-    console.log(data);
-  });
-
-  socket.on('arduino', function (data) {
-    io.sockets.emit('arduino', {
-      message: 'R0'
-    });
-    console.log(data);
   });
 
   socket.on('disconnect', function () {
@@ -112,10 +85,10 @@ app.post('/orders', (req, res) => {
       user.orders.push(order);
       user.save();
       var json = {
-        method: "gui nuoc",
-        type_water: req.body.id_water
+        type_water: req.body.id_water,
+        order_id: order._id
       }
-      io.sockets.emit('atime', json);
+      io.sockets.emit('drop_water', json);
       res.status(200).send({ message: "Sent successfully" });
     }
   })
