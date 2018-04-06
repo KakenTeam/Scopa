@@ -80,7 +80,7 @@ void loop()
             const char* order_id = root["order_id"];
             
             drop_water(type_water);
-            ioClient.send("connection", "done", order_id);
+            ioClient.send("done", "message", order_id);
             // reset value 
             RID = "";
             Rfull = "";

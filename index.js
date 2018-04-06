@@ -13,6 +13,7 @@ var _ = require('lodash');
 var { mongoose } = require('./db/mongoose');
 var { User } = require('./models/user');
 var { Order } = require('./models/order');
+var { State } = require('./models/state');
 
 console.log("Server nodejs chay tai dia chi: " + ip.address() + ":" + PORT)
 server.listen(PORT, function () {
@@ -37,10 +38,31 @@ io.on('connection', function (socket) {
     console.log(message);
   });
 
+  socket.on("done", (message) => {
+    set_free_arduino(false);
+
+    //kiem tra trong database co order nao dang cho ko 
+  })
+
   socket.on('disconnect', function () {
     console.log("disconnect with arduino!") 
   })
 });
+
+function set_state_arduino(value_state) {
+  var state = State.findOne({});
+  console.log(state.is_busy);
+  State.findOneAndUpdate(
+    { _id: state._id },
+    {
+      $set:
+        {
+          is_busy: value_state
+        }
+    }
+  )
+
+};
 
 app.post('/users', (req, res) => {
   var user = new User({
@@ -70,6 +92,7 @@ app.post('/login', (req, res) => {
 });
 
 app.post('/orders', (req, res) => {
+
   var owner = User.findOne({ _id: req.body.id_user })
   .exec(function (err, user) {
     if (err) {
@@ -88,6 +111,7 @@ app.post('/orders', (req, res) => {
         type_water: req.body.id_water,
         order_id: order._id
       }
+      set_state_arduino(true);
       io.sockets.emit('drop_water', json);
       res.status(200).send({ message: "Sent successfully" });
     }
