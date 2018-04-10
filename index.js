@@ -29,19 +29,16 @@ function ParseJson(jsondata) {
   }
 }
 
-//Khi có mệt kết nối được tạo giữa Socket Client và Socket Server
 io.on('connection', function (socket) {
   
-  console.log("Connected"); //In ra màn hình console là đã có một Socket Client kết nối thành công.
+  console.log("Connected"); 
 
   socket.on('connection', function (message) {
     console.log(message);
   });
 
   socket.on("done", (message) => {
-    set_free_arduino(false);
-
-    //kiem tra trong database co order nao dang cho ko 
+    set_state_arduino(false);
   })
 
   socket.on('disconnect', function () {
@@ -50,19 +47,29 @@ io.on('connection', function (socket) {
 });
 
 function set_state_arduino(value_state) {
-  var state = State.findOne({});
-  console.log(state.is_busy);
+  var state_id = "5ac43bb01566211f10f38fac";
   State.findOneAndUpdate(
-    { _id: state._id },
+    { _id: state_id },
     {
       $set:
         {
           is_busy: value_state
         }
-    }
-  )
+    },
+    { new: true }, function (err, doc) {
+      if (err) {
+        console.log("Something wrong when updating data!");
+      }
 
+      console.log(doc);
+    });
 };
+
+function getStateArduino() {
+  var state_id = "5ac43bb01566211f10f38fac";
+  var state = State.findById(state_id);
+  return state.is_busy;
+}
 
 app.post('/users', (req, res) => {
   var user = new User({
@@ -111,9 +118,14 @@ app.post('/orders', (req, res) => {
         type_water: req.body.id_water,
         order_id: order._id
       }
-      set_state_arduino(true);
-      io.sockets.emit('drop_water', json);
-      res.status(200).send({ message: "Sent successfully" });
+      if (getStateArduino() === false) {
+        set_state_arduino(true);
+        io.sockets.emit('drop_water', json);
+        res.status(200).send({ message: "Sent successfully" });
+      } else 
+      {
+        res.status(200).send({ message: "wait" });
+      }
     }
   })
 })
