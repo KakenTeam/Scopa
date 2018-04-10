@@ -109,11 +109,7 @@ app.post('/orders', (req, res) => {
         id_water: req.body.id_water,
         owner: user._id
       })
-      order.save(function (err) {
-        console.log(err);
-      });
-      user.orders.push(order);
-      user.save();
+      order.save();
       var json = {
         type_water: req.body.id_water,
         order_id: order._id
