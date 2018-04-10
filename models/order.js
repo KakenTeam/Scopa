@@ -15,7 +15,10 @@ var Order = mongoose.model('Order', {
   created_at: { 
     type: Date, default: Date.now
   },
-  owner: { type: Schema.Types.ObjectId, ref: 'User'}
+  owner: { type: Schema.Types.ObjectId, ref: 'User'},
+  is_served: {
+    type: Boolean, default: false
+  }
 });
 
 module.exports = { Order }
