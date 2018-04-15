@@ -3,10 +3,10 @@
 #include <ArduinoJson.h>
 
 SocketIOClient ioClient;
-const char* ssid = "Cafe Sang Chieu";
-const char* password = "trasua123";
+const char* ssid = "Thanh Trang";
+const char* password = "minhthuan274";
 
-char host[] = "192.168.1.14";
+char host[] = "192.168.1.2";
 int port = 3001;
 
 //từ khóa extern: dùng để #include các biến toàn cục ở một số thư viện khác. Trong thư viện SocketIOClient có hai biến toàn cục
@@ -48,6 +48,7 @@ void setup()
     }
     Serial.println("Set up pin mode 12");
     pinMode(12, OUTPUT);
+    pinMode(13, OUTPUT);
 }
 
 void drop_water(long type_water) {
@@ -59,10 +60,10 @@ void drop_water(long type_water) {
     digitalWrite(12, LOW);
   }
   if (type_water == 2) {
-    digitalWrite(12, HIGH);       // sets the digital pin 13 on
+    digitalWrite(13, HIGH);       // sets the digital pin 13 on
     delay(5000);
     Serial.println("Nhan order gui nuoc");
-    digitalWrite(12, LOW);
+    digitalWrite(13, LOW);
   }
 }
 

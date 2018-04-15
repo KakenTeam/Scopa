@@ -46,6 +46,23 @@ io.on('connection', function (socket) {
   })
 });
 
+function set_has_served_order(order_id) {
+  Order.findOneAndUpdate(
+    { _id: order_id },
+    {
+      $set: {
+        is_served: true 
+      }
+    },
+    { new: true }, function (err, doc) {
+      if (err) {
+        console.log("Something wrong when updating order served!");
+      }
+
+      console.log("updated served order " + order_id);
+    });
+}
+
 function set_state_arduino(value_state) {
   var state_id = "5ac43bb01566211f10f38fac";
   State.findOneAndUpdate(
@@ -67,8 +84,12 @@ function set_state_arduino(value_state) {
 
 function getStateArduino() {
   var state_id = "5ac43bb01566211f10f38fac";
-  var state = State.findById(state_id);
-  return state.is_busy;
+  var state = State.findOne({ _id: state_id}, function(err, result) {
+    if (err) {
+      console.log("CAN NOT FIND");
+    }
+    return result.is_busy;
+  });
 }
 
 app.post('/users', (req, res) => {
@@ -114,14 +135,23 @@ app.post('/orders', (req, res) => {
         type_water: req.body.id_water,
         order_id: order._id
       }
-      if (getStateArduino() === false) {
-        set_state_arduino(true);
-        io.sockets.emit('drop_water', json);
-        res.status(200).send({ message: "Sent successfully" });
-      } else 
-      {
-        res.status(200).send({ message: "wait" });
-      }
+      
+      var state_id = "5ac43bb01566211f10f38fac";
+      State.findOne({ _id: state_id }, function (err, result) {
+        if (err) {
+          console.log("CAN NOT FIND");
+        }
+        var state_arduino = result.is_busy;
+        if (state_arduino) {
+          res.status(200).send({ message: "wait" });
+        } else {
+          set_state_arduino(true);
+          set_has_served_order(order._id);
+          io.sockets.emit('drop_water', json);
+          res.status(200).send({ message: "Sent successfully" });
+        }
+      });
+      
     }
   })
 })
