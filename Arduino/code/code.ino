@@ -56,13 +56,11 @@ void drop_water(long type_water) {
   if (type_water == 1) {
     digitalWrite(12, HIGH);       // sets the digital pin 13 on
     delay(5000);
-    Serial.println("Nhan order gui nuoc");
     digitalWrite(12, LOW);
   }
   if (type_water == 2) {
     digitalWrite(13, HIGH);       // sets the digital pin 13 on
     delay(5000);
-    Serial.println("Nhan order gui nuoc");
     digitalWrite(13, LOW);
   }
 }
@@ -79,7 +77,8 @@ void loop()
             JsonObject& root = jsonBuffer.parseObject(Rfull);
             long type_water = root["type_water"];
             const char* order_id = root["order_id"];
-            
+            Serial.println("Nhan order gui nuoc ");
+            Serial.println(order_id);
             drop_water(type_water);
             ioClient.send("done", "message", order_id);
             // reset value 

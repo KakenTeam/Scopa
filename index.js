@@ -37,14 +37,30 @@ io.on('connection', function (socket) {
     console.log(message);
   });
 
-  socket.on("done", (message) => {
+  socket.on("done", (order_id) => {
     set_state_arduino(false);
+    console.log(order_id);
+    set_has_served_order(order_id.message);
+    serve_another_order();
   })
 
   socket.on('disconnect', function () {
     console.log("disconnect with arduino!") 
   })
 });
+
+function serve_another_order() {
+  console.log("Server another order");
+  Order.find({ is_served: false}).lean().exec(function(err, results) {
+    if (results.length > 0) {
+      var json = {
+        type_water: results[0].id_water,
+        order_id: results[0]._id
+      }
+      io.sockets.emit('drop_water', json);
+    }
+  });
+}
 
 function set_has_served_order(order_id) {
   Order.findOneAndUpdate(
@@ -78,7 +94,7 @@ function set_state_arduino(value_state) {
         console.log("Something wrong when updating data!");
       }
 
-      console.log(doc);
+      console.log("State arduino now: ", doc.is_busy);
     });
 };
 
@@ -146,7 +162,6 @@ app.post('/orders', (req, res) => {
           res.status(200).send({ message: "wait" });
         } else {
           set_state_arduino(true);
-          set_has_served_order(order._id);
           io.sockets.emit('drop_water', json);
           res.status(200).send({ message: "Sent successfully" });
         }
