@@ -57,7 +57,8 @@ function serve_another_order() {
         type_water: results[0].id_water,
         order_id: results[0]._id
       }
-      io.sockets.emit('drop_water', json);
+      var channel_user = 'users' + results[0].owner;
+      io.sockets.emit(channel_user, json);
     }
   });
 }
@@ -183,4 +184,24 @@ app.get('/orders', (req, res) => {
     if (err) return res.sendStatus(400);
     res.send(orders);
   });
+})
+
+app.get('/orders/:id/serve', (req, res) => {
+  var order_id = req.params.id;
+  Order.findById(order_id, function(err, order) {
+    var json = {
+      type_water: order.id_water,
+      order_id: order._id
+    }
+    io.sockets.emit('drop_water', json);
+    res.status(200).send({ message: "Sent" });
+  })
+})
+
+app.delete('/orders/:id', (req, res) => {
+  var order_id = req.params.id;
+  Order.findByIdAndRemove(order_id, function(err, order) {
+    if (err) console.log(err);
+    res.send({ message: "canceled order"});
+  })
 })
