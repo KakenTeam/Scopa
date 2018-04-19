@@ -35,6 +35,7 @@ io.on('connection', function (socket) {
 
   socket.on('connection', function (message) {
     console.log(message);
+    set_state_arduino(false);
   });
 
   socket.on("done", (order_id) => {
