@@ -203,6 +203,14 @@ app.get('/orders/:id/serve', (req, res) => {
   })
 })
 
+app.get('/users/:id/orders', (req, res) => {
+  var user_id = req.params.id;
+  Order.find({ owner: user_id, is_served: true}).lean()
+       .exec(function(err, orders) {
+          res.send({ orders: orders } );
+       });
+})
+
 app.delete('/orders/:id', (req, res) => {
   var order_id = req.params.id;
   Order.findByIdAndRemove(order_id, function(err, order) {
