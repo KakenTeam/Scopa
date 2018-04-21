@@ -1,0 +1,8 @@
+{
+  "title": "Scopa API",
+  "version": "1.0.0",
+  "host": "API URL",
+  "bastPath": "scopa-production.herokuapp.com",
+  "schemes": "HTTP protocol",
+  "description": "Đồ án vi điều khiển"
+}

@@ -1,0 +1,177 @@
+{
+	"_type": "export",
+	"__export_format": 3,
+	"__export_date": "2018-04-21T13:44:23.347Z",
+	"__export_source": "insomnia.desktop.app:v5.15.0",
+	"resources": [
+		{
+			"_id": "wrk_b69f7ecdebb440fe8e206e92489ad7ae",
+			"created": 1524283679905,
+			"description": "",
+			"modified": 1524283679905,
+			"name": "Đồ án vi điều khển",
+			"parentId": null,
+			"_type": "workspace"
+		},
+		{
+			"_id": "env_f5485133d80f4008ae6c8b9554597d78",
+			"color": null,
+			"created": 1524283679947,
+			"data": {},
+			"isPrivate": false,
+			"modified": 1524283679947,
+			"name": "New Environment",
+			"parentId": "wrk_b69f7ecdebb440fe8e206e92489ad7ae",
+			"_type": "environment"
+		},
+		{
+			"_id": "jar_3df53bc5a9694db39ff8c6b0ba597b5f",
+			"cookies": [],
+			"created": 1524283679952,
+			"modified": 1524283679952,
+			"name": "Default Jar",
+			"parentId": "wrk_b69f7ecdebb440fe8e206e92489ad7ae",
+			"_type": "cookie_jar"
+		},
+		{
+			"_id": "req_9fbb4d6cc37d478aa877792f2b98592b",
+			"authentication": {},
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\n\t\"username\": \"thuan274\",\n\t\"password\": \"thuanheo\"\n}"
+			},
+			"created": 1524283838076,
+			"description": "",
+			"headers": [
+				{
+					"id": "pair_2248747bfa344767887720c2a3f80f70",
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1524283838076,
+			"method": "POST",
+			"modified": 1524310127719,
+			"name": "Đăng nhập ",
+			"parameters": [],
+			"parentId": "wrk_b69f7ecdebb440fe8e206e92489ad7ae",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ base_url  }}/login",
+			"_type": "request"
+		},
+		{
+			"_id": "req_4f3126c6394747a4a4ba93f6d65207ee",
+			"authentication": {},
+			"body": {},
+			"created": 1524284849762,
+			"description": "Khi arduino trả về message: wait thì khi nhận được socket io arduino đã sẵn sàng thì gửi request này",
+			"headers": [],
+			"isPrivate": false,
+			"metaSortKey": -1524284849762,
+			"method": "GET",
+			"modified": 1524316298412,
+			"name": "Gửi request trả nước",
+			"parameters": [],
+			"parentId": "wrk_b69f7ecdebb440fe8e206e92489ad7ae",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ base_url  }}/orders/5ad37313233da6093cd0b047/serve",
+			"_type": "request"
+		},
+		{
+			"_id": "req_a2d9dcb58cc74ffcb4e500e7a63d125a",
+			"authentication": {},
+			"body": {},
+			"created": 1524316405042,
+			"description": "Khi đã nhận được socket là arduino sẵn sàng mà bạn cảm thấy chờ quá lâu thì bạn có thể xóa order đó đi ",
+			"headers": [],
+			"isPrivate": false,
+			"metaSortKey": -1524316405042,
+			"method": "DELETE",
+			"modified": 1524316484763,
+			"name": "Xóa order",
+			"parameters": [],
+			"parentId": "wrk_b69f7ecdebb440fe8e206e92489ad7ae",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ base_url  }}/orders/5ad37313233da6093cd0b047",
+			"_type": "request"
+		},
+		{
+			"_id": "req_f41295b80e4c4375a7b3c8bbb53ab858",
+			"authentication": {},
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\n\t\"username\": \"doanminhthuan274\",\n\t\"password\": \"thuan274\"\n}"
+			},
+			"created": 1524316633624,
+			"description": "",
+			"headers": [
+				{
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1524316633624,
+			"method": "POST",
+			"modified": 1524316944103,
+			"name": "Đăng ký user",
+			"parameters": [],
+			"parentId": "wrk_b69f7ecdebb440fe8e206e92489ad7ae",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ base_url  }}/users",
+			"_type": "request"
+		},
+		{
+			"_id": "req_859fc7c96bf7418ea6a1316598869a68",
+			"authentication": {},
+			"body": {},
+			"created": 1524317833918,
+			"description": "",
+			"headers": [],
+			"isPrivate": false,
+			"metaSortKey": -1524317833918,
+			"method": "GET",
+			"modified": 1524317898077,
+			"name": "Lấy thông tin orders của user",
+			"parameters": [],
+			"parentId": "wrk_b69f7ecdebb440fe8e206e92489ad7ae",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ base_url  }}/users/5ac244f9bf3f9e322487c2f6/orders",
+			"_type": "request"
+		},
+		{
+			"_id": "env_ee917559351846e1a4492d6411d3f53c",
+			"color": "#8080c0",
+			"created": 1524285203614,
+			"data": {
+				"base_url": "localhost:3001"
+			},
+			"isPrivate": false,
+			"modified": 1524285309847,
+			"name": "Development",
+			"parentId": "env_f5485133d80f4008ae6c8b9554597d78",
+			"_type": "environment"
+		}
+	]
+}
