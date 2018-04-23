@@ -171,7 +171,7 @@ app.post('/orders', (req, res) => {
         }
         var state_arduino = result.is_busy;
         if (state_arduino) {
-          res.status(200).send({ message: "wait" });
+          res.status(200).send({ message: "wait", order_id: order._id });
         } else {
           set_state_arduino(true);
           io.sockets.emit('drop_water', json);

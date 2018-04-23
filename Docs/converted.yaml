@@ -1,0 +1,706 @@
+swagger: '2.0'
+info:
+  version: '1.0'
+  title: HAR Imported API
+  description: 'TODO: Add Description'
+host: scopa-production.herokuapp.com
+basePath: /
+schemes:
+- http
+consumes:
+- application/json
+produces:
+- application/json
+paths:
+  /users/5ac244f9bf3f9e322487c2f6/orders:
+    get:
+      description: Lấy thông tin orders của user
+      summary: Users5ac244f9bf3f9e322487c2f6Orders
+      operationId: Users5ac244f9bf3f9e322487c2f6OrdersGet
+      produces:
+      - application/json
+      parameters: []
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/Response'
+          examples:
+            application/json:
+              orders:
+              - _id: 5ad3734968f6ce1ff03ce5b1
+                payment: 4000
+                is_served: true
+                id_water: 1
+                owner: 5ac244f9bf3f9e322487c2f6
+                created_at: 2018-04-15T15:44:09.5530000Z
+                __v: 0
+              - _id: 5ad3736b68f6ce1ff03ce5b2
+                payment: 4000
+                is_served: true
+                id_water: 1
+                owner: 5ac244f9bf3f9e322487c2f6
+                created_at: 2018-04-15T15:44:43.9290000Z
+                __v: 0
+              - _id: 5ad373cea019d720f4274eb0
+                payment: 4000
+                is_served: true
+                id_water: 1
+                owner: 5ac244f9bf3f9e322487c2f6
+                created_at: 2018-04-15T15:46:22.9920000Z
+                __v: 0
+              - _id: 5ad373e3a019d720f4274eb1
+                payment: 4000
+                is_served: true
+                id_water: 1
+                owner: 5ac244f9bf3f9e322487c2f6
+                created_at: 2018-04-15T15:46:43.9730000Z
+                __v: 0
+              - _id: 5ad37466a8e353093c169ee1
+                payment: 4000
+                is_served: true
+                id_water: 2
+                owner: 5ac244f9bf3f9e322487c2f6
+                created_at: 2018-04-15T15:48:54.7670000Z
+                __v: 0
+              - _id: 5ad374d60b1bd332142c905a
+                payment: 4000
+                is_served: true
+                id_water: 1
+                owner: 5ac244f9bf3f9e322487c2f6
+                created_at: 2018-04-15T15:50:46.4880000Z
+                __v: 0
+              - _id: 5ad375adb679c3146c8fa2a3
+                payment: 4000
+                is_served: true
+                id_water: 1
+                owner: 5ac244f9bf3f9e322487c2f6
+                created_at: 2018-04-15T15:54:21.0150000Z
+                __v: 0
+              - _id: 5ad8b4068af0b6001443f47b
+                payment: 4000
+                is_served: true
+                id_water: 1
+                owner: 5ac244f9bf3f9e322487c2f6
+                created_at: 2018-04-19T15:21:42.3530000Z
+                __v: 0
+              - _id: 5ad8b4168af0b6001443f47c
+                payment: 4000
+                is_served: true
+                id_water: 1
+                owner: 5ac244f9bf3f9e322487c2f6
+                created_at: 2018-04-19T15:21:58.4000000Z
+                __v: 0
+              - _id: 5ad8b4238af0b6001443f47d
+                payment: 4000
+                is_served: true
+                id_water: 2
+                owner: 5ac244f9bf3f9e322487c2f6
+                created_at: 2018-04-19T15:22:11.0790000Z
+                __v: 0
+              - _id: 5ad8b42e8af0b6001443f47f
+                payment: 4000
+                is_served: true
+                id_water: 2
+                owner: 5ac244f9bf3f9e322487c2f6
+                created_at: 2018-04-19T15:22:22.6880000Z
+                __v: 0
+              - _id: 5ad8b43c8af0b6001443f480
+                payment: 4000
+                is_served: true
+                id_water: 2
+                owner: 5ac244f9bf3f9e322487c2f6
+                created_at: 2018-04-19T15:22:36.4980000Z
+                __v: 0
+              - _id: 5ad8b46e8af0b6001443f482
+                payment: 4000
+                is_served: true
+                id_water: 2
+                owner: 5ac244f9bf3f9e322487c2f6
+                created_at: 2018-04-19T15:23:26.4510000Z
+                __v: 0
+              - _id: 5ad8b4768af0b6001443f484
+                payment: 4000
+                is_served: true
+                id_water: 2
+                owner: 5ac244f9bf3f9e322487c2f6
+                created_at: 2018-04-19T15:23:34.5160000Z
+                __v: 0
+              - _id: 5ad8b47e8af0b6001443f485
+                payment: 4000
+                is_served: true
+                id_water: 2
+                owner: 5ac244f9bf3f9e322487c2f6
+                created_at: 2018-04-19T15:23:42.2880000Z
+                __v: 0
+              - _id: 5ad8b48b8af0b6001443f486
+                payment: 4000
+                is_served: true
+                id_water: 1
+                owner: 5ac244f9bf3f9e322487c2f6
+                created_at: 2018-04-19T15:23:55.3770000Z
+                __v: 0
+      security: []
+      x-unitTests:
+      - request:
+          method: GET
+          uri: /users/5ac244f9bf3f9e322487c2f6/orders
+        expectedResponse:
+          x-allowExtraHeaders: true
+          x-bodyMatchMode: RAW
+          x-arrayOrderedMatching: false
+          x-arrayCheckCount: false
+          x-matchResponseSchema: true
+          headers:
+            Connection: keep-alive
+          body: '{"orders":[{"_id":"5ad3734968f6ce1ff03ce5b1","payment":4000,"is_served":true,"id_water":1,"owner":"5ac244f9bf3f9e322487c2f6","created_at":"2018-04-15T15:44:09.553Z","__v":0},{"_id":"5ad3736b68f6ce1ff03ce5b2","payment":4000,"is_served":true,"id_water":1,"owner":"5ac244f9bf3f9e322487c2f6","created_at":"2018-04-15T15:44:43.929Z","__v":0},{"_id":"5ad373cea019d720f4274eb0","payment":4000,"is_served":true,"id_water":1,"owner":"5ac244f9bf3f9e322487c2f6","created_at":"2018-04-15T15:46:22.992Z","__v":0},{"_id":"5ad373e3a019d720f4274eb1","payment":4000,"is_served":true,"id_water":1,"owner":"5ac244f9bf3f9e322487c2f6","created_at":"2018-04-15T15:46:43.973Z","__v":0},{"_id":"5ad37466a8e353093c169ee1","payment":4000,"is_served":true,"id_water":2,"owner":"5ac244f9bf3f9e322487c2f6","created_at":"2018-04-15T15:48:54.767Z","__v":0},{"_id":"5ad374d60b1bd332142c905a","payment":4000,"is_served":true,"id_water":1,"owner":"5ac244f9bf3f9e322487c2f6","created_at":"2018-04-15T15:50:46.488Z","__v":0},{"_id":"5ad375adb679c3146c8fa2a3","payment":4000,"is_served":true,"id_water":1,"owner":"5ac244f9bf3f9e322487c2f6","created_at":"2018-04-15T15:54:21.015Z","__v":0},{"_id":"5ad8b4068af0b6001443f47b","payment":4000,"is_served":true,"id_water":1,"owner":"5ac244f9bf3f9e322487c2f6","created_at":"2018-04-19T15:21:42.353Z","__v":0},{"_id":"5ad8b4168af0b6001443f47c","payment":4000,"is_served":true,"id_water":1,"owner":"5ac244f9bf3f9e322487c2f6","created_at":"2018-04-19T15:21:58.400Z","__v":0},{"_id":"5ad8b4238af0b6001443f47d","payment":4000,"is_served":true,"id_water":2,"owner":"5ac244f9bf3f9e322487c2f6","created_at":"2018-04-19T15:22:11.079Z","__v":0},{"_id":"5ad8b42e8af0b6001443f47f","payment":4000,"is_served":true,"id_water":2,"owner":"5ac244f9bf3f9e322487c2f6","created_at":"2018-04-19T15:22:22.688Z","__v":0},{"_id":"5ad8b43c8af0b6001443f480","payment":4000,"is_served":true,"id_water":2,"owner":"5ac244f9bf3f9e322487c2f6","created_at":"2018-04-19T15:22:36.498Z","__v":0},{"_id":"5ad8b46e8af0b6001443f482","payment":4000,"is_served":true,"id_water":2,"owner":"5ac244f9bf3f9e322487c2f6","created_at":"2018-04-19T15:23:26.451Z","__v":0},{"_id":"5ad8b4768af0b6001443f484","payment":4000,"is_served":true,"id_water":2,"owner":"5ac244f9bf3f9e322487c2f6","created_at":"2018-04-19T15:23:34.516Z","__v":0},{"_id":"5ad8b47e8af0b6001443f485","payment":4000,"is_served":true,"id_water":2,"owner":"5ac244f9bf3f9e322487c2f6","created_at":"2018-04-19T15:23:42.288Z","__v":0},{"_id":"5ad8b48b8af0b6001443f486","payment":4000,"is_served":true,"id_water":1,"owner":"5ac244f9bf3f9e322487c2f6","created_at":"2018-04-19T15:23:55.377Z","__v":0}]}'
+        x-testShouldPass: true
+        x-testEnabled: true
+        x-testName: Users5ac244f9bf3f9e322487c2f6Orders1
+        x-testDescription: Lấy thông tin orders của user
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+  /users:
+    post:
+      description: Đăng ký user
+      summary: Users
+      operationId: UsersPost
+      produces:
+      - application/json
+      parameters:
+      - name: Content-Type
+        in: header
+        required: true
+        type: string
+        description: ''
+      - name: body
+        in: body
+        required: true
+        description: ''
+        schema:
+          type: string
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/Response2'
+          examples:
+            application/json:
+              orders: []
+              _id: 5adb3b118daa8b2d749f6aa8
+              username: doanminhthuan274
+              password: thuan274
+              __v: 0
+      security: []
+      x-unitTests:
+      - request:
+          method: POST
+          uri: /users
+          headers:
+            Content-Type: application/json
+          body: >-
+            {
+            	"username": "doanminhthuan274",
+            	"password": "thuan274"
+            }
+        expectedResponse:
+          x-allowExtraHeaders: true
+          x-bodyMatchMode: RAW
+          x-arrayOrderedMatching: false
+          x-arrayCheckCount: false
+          x-matchResponseSchema: true
+          headers:
+            Connection: keep-alive
+          body: '{"orders":[],"_id":"5adb3b118daa8b2d749f6aa8","username":"doanminhthuan274","password":"thuan274","__v":0}'
+        x-testShouldPass: true
+        x-testEnabled: true
+        x-testName: Users1
+        x-testDescription: Đăng ký user
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+  /orders/5ad37313233da6093cd0b047:
+    delete:
+      description: Xóa order
+      summary: Orders5ad37313233da6093cd0b047
+      operationId: Orders5ad37313233da6093cd0b047Delete
+      produces:
+      - application/json
+      parameters: []
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/Response3'
+          examples:
+            application/json:
+              message: canceled order
+      security: []
+      x-unitTests:
+      - request:
+          method: DELETE
+          uri: /orders/5ad37313233da6093cd0b047
+        expectedResponse:
+          x-allowExtraHeaders: true
+          x-bodyMatchMode: RAW
+          x-arrayOrderedMatching: false
+          x-arrayCheckCount: false
+          x-matchResponseSchema: true
+          headers:
+            Connection: keep-alive
+          body: '{"message":"canceled order"}'
+        x-testShouldPass: true
+        x-testEnabled: true
+        x-testName: Orders5ad37313233da6093cd0b0471
+        x-testDescription: Xóa order
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+  /orders/5ad37313233da6093cd0b047/serve:
+    get:
+      description: Gửi request trả nước
+      summary: Orders5ad37313233da6093cd0b047Serve
+      operationId: Orders5ad37313233da6093cd0b047ServeGet
+      produces:
+      - application/json
+      parameters: []
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/Response3'
+          examples:
+            application/json:
+              message: Sent
+      security: []
+      x-unitTests:
+      - request:
+          method: GET
+          uri: /orders/5ad37313233da6093cd0b047/serve
+        expectedResponse:
+          x-allowExtraHeaders: true
+          x-bodyMatchMode: RAW
+          x-arrayOrderedMatching: false
+          x-arrayCheckCount: false
+          x-matchResponseSchema: true
+          headers:
+            Connection: keep-alive
+          body: '{"message":"Sent"}'
+        x-testShouldPass: true
+        x-testEnabled: true
+        x-testName: Orders5ad37313233da6093cd0b047Serve1
+        x-testDescription: Gửi request trả nước
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+  /login:
+    post:
+      description: 'Đăng nhập '
+      summary: Login
+      operationId: LoginPost
+      produces:
+      - application/json
+      parameters:
+      - name: Content-Type
+        in: header
+        required: true
+        type: string
+        description: ''
+      - name: body
+        in: body
+        required: true
+        description: ''
+        schema:
+          type: string
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/Response2'
+          examples:
+            application/json:
+              orders: []
+              _id: 5ac23461aecf371b31096781
+              username: thuan274
+              password: thuanheo
+              __v: 0
+      security: []
+      x-unitTests:
+      - request:
+          method: POST
+          uri: /login
+          headers:
+            Content-Type: application/json
+          body: >-
+            {
+            	"username": "thuan274",
+            	"password": "thuanheo"
+            }
+        expectedResponse:
+          x-allowExtraHeaders: true
+          x-bodyMatchMode: RAW
+          x-arrayOrderedMatching: false
+          x-arrayCheckCount: false
+          x-matchResponseSchema: true
+          headers:
+            Via: 1.1 vegur
+          body: '{"orders":[],"_id":"5ac23461aecf371b31096781","username":"thuan274","password":"thuanheo","__v":0}'
+        x-testShouldPass: true
+        x-testEnabled: true
+        x-testName: Login1
+        x-testDescription: 'Đăng nhập '
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+definitions:
+  Response:
+    title: Response
+    example:
+      orders:
+      - _id: 5ad3734968f6ce1ff03ce5b1
+        payment: 4000
+        is_served: true
+        id_water: 1
+        owner: 5ac244f9bf3f9e322487c2f6
+        created_at: 2018-04-15T15:44:09.5530000Z
+        __v: 0
+      - _id: 5ad3736b68f6ce1ff03ce5b2
+        payment: 4000
+        is_served: true
+        id_water: 1
+        owner: 5ac244f9bf3f9e322487c2f6
+        created_at: 2018-04-15T15:44:43.9290000Z
+        __v: 0
+      - _id: 5ad373cea019d720f4274eb0
+        payment: 4000
+        is_served: true
+        id_water: 1
+        owner: 5ac244f9bf3f9e322487c2f6
+        created_at: 2018-04-15T15:46:22.9920000Z
+        __v: 0
+      - _id: 5ad373e3a019d720f4274eb1
+        payment: 4000
+        is_served: true
+        id_water: 1
+        owner: 5ac244f9bf3f9e322487c2f6
+        created_at: 2018-04-15T15:46:43.9730000Z
+        __v: 0
+      - _id: 5ad37466a8e353093c169ee1
+        payment: 4000
+        is_served: true
+        id_water: 2
+        owner: 5ac244f9bf3f9e322487c2f6
+        created_at: 2018-04-15T15:48:54.7670000Z
+        __v: 0
+      - _id: 5ad374d60b1bd332142c905a
+        payment: 4000
+        is_served: true
+        id_water: 1
+        owner: 5ac244f9bf3f9e322487c2f6
+        created_at: 2018-04-15T15:50:46.4880000Z
+        __v: 0
+      - _id: 5ad375adb679c3146c8fa2a3
+        payment: 4000
+        is_served: true
+        id_water: 1
+        owner: 5ac244f9bf3f9e322487c2f6
+        created_at: 2018-04-15T15:54:21.0150000Z
+        __v: 0
+      - _id: 5ad8b4068af0b6001443f47b
+        payment: 4000
+        is_served: true
+        id_water: 1
+        owner: 5ac244f9bf3f9e322487c2f6
+        created_at: 2018-04-19T15:21:42.3530000Z
+        __v: 0
+      - _id: 5ad8b4168af0b6001443f47c
+        payment: 4000
+        is_served: true
+        id_water: 1
+        owner: 5ac244f9bf3f9e322487c2f6
+        created_at: 2018-04-19T15:21:58.4000000Z
+        __v: 0
+      - _id: 5ad8b4238af0b6001443f47d
+        payment: 4000
+        is_served: true
+        id_water: 2
+        owner: 5ac244f9bf3f9e322487c2f6
+        created_at: 2018-04-19T15:22:11.0790000Z
+        __v: 0
+      - _id: 5ad8b42e8af0b6001443f47f
+        payment: 4000
+        is_served: true
+        id_water: 2
+        owner: 5ac244f9bf3f9e322487c2f6
+        created_at: 2018-04-19T15:22:22.6880000Z
+        __v: 0
+      - _id: 5ad8b43c8af0b6001443f480
+        payment: 4000
+        is_served: true
+        id_water: 2
+        owner: 5ac244f9bf3f9e322487c2f6
+        created_at: 2018-04-19T15:22:36.4980000Z
+        __v: 0
+      - _id: 5ad8b46e8af0b6001443f482
+        payment: 4000
+        is_served: true
+        id_water: 2
+        owner: 5ac244f9bf3f9e322487c2f6
+        created_at: 2018-04-19T15:23:26.4510000Z
+        __v: 0
+      - _id: 5ad8b4768af0b6001443f484
+        payment: 4000
+        is_served: true
+        id_water: 2
+        owner: 5ac244f9bf3f9e322487c2f6
+        created_at: 2018-04-19T15:23:34.5160000Z
+        __v: 0
+      - _id: 5ad8b47e8af0b6001443f485
+        payment: 4000
+        is_served: true
+        id_water: 2
+        owner: 5ac244f9bf3f9e322487c2f6
+        created_at: 2018-04-19T15:23:42.2880000Z
+        __v: 0
+      - _id: 5ad8b48b8af0b6001443f486
+        payment: 4000
+        is_served: true
+        id_water: 1
+        owner: 5ac244f9bf3f9e322487c2f6
+        created_at: 2018-04-19T15:23:55.3770000Z
+        __v: 0
+    type: object
+    properties:
+      orders:
+        description: ''
+        example:
+        - _id: 5ad3734968f6ce1ff03ce5b1
+          payment: 4000
+          is_served: true
+          id_water: 1
+          owner: 5ac244f9bf3f9e322487c2f6
+          created_at: 2018-04-15T15:44:09.5530000Z
+          __v: 0
+        - _id: 5ad3736b68f6ce1ff03ce5b2
+          payment: 4000
+          is_served: true
+          id_water: 1
+          owner: 5ac244f9bf3f9e322487c2f6
+          created_at: 2018-04-15T15:44:43.9290000Z
+          __v: 0
+        - _id: 5ad373cea019d720f4274eb0
+          payment: 4000
+          is_served: true
+          id_water: 1
+          owner: 5ac244f9bf3f9e322487c2f6
+          created_at: 2018-04-15T15:46:22.9920000Z
+          __v: 0
+        - _id: 5ad373e3a019d720f4274eb1
+          payment: 4000
+          is_served: true
+          id_water: 1
+          owner: 5ac244f9bf3f9e322487c2f6
+          created_at: 2018-04-15T15:46:43.9730000Z
+          __v: 0
+        - _id: 5ad37466a8e353093c169ee1
+          payment: 4000
+          is_served: true
+          id_water: 2
+          owner: 5ac244f9bf3f9e322487c2f6
+          created_at: 2018-04-15T15:48:54.7670000Z
+          __v: 0
+        - _id: 5ad374d60b1bd332142c905a
+          payment: 4000
+          is_served: true
+          id_water: 1
+          owner: 5ac244f9bf3f9e322487c2f6
+          created_at: 2018-04-15T15:50:46.4880000Z
+          __v: 0
+        - _id: 5ad375adb679c3146c8fa2a3
+          payment: 4000
+          is_served: true
+          id_water: 1
+          owner: 5ac244f9bf3f9e322487c2f6
+          created_at: 2018-04-15T15:54:21.0150000Z
+          __v: 0
+        - _id: 5ad8b4068af0b6001443f47b
+          payment: 4000
+          is_served: true
+          id_water: 1
+          owner: 5ac244f9bf3f9e322487c2f6
+          created_at: 2018-04-19T15:21:42.3530000Z
+          __v: 0
+        - _id: 5ad8b4168af0b6001443f47c
+          payment: 4000
+          is_served: true
+          id_water: 1
+          owner: 5ac244f9bf3f9e322487c2f6
+          created_at: 2018-04-19T15:21:58.4000000Z
+          __v: 0
+        - _id: 5ad8b4238af0b6001443f47d
+          payment: 4000
+          is_served: true
+          id_water: 2
+          owner: 5ac244f9bf3f9e322487c2f6
+          created_at: 2018-04-19T15:22:11.0790000Z
+          __v: 0
+        - _id: 5ad8b42e8af0b6001443f47f
+          payment: 4000
+          is_served: true
+          id_water: 2
+          owner: 5ac244f9bf3f9e322487c2f6
+          created_at: 2018-04-19T15:22:22.6880000Z
+          __v: 0
+        - _id: 5ad8b43c8af0b6001443f480
+          payment: 4000
+          is_served: true
+          id_water: 2
+          owner: 5ac244f9bf3f9e322487c2f6
+          created_at: 2018-04-19T15:22:36.4980000Z
+          __v: 0
+        - _id: 5ad8b46e8af0b6001443f482
+          payment: 4000
+          is_served: true
+          id_water: 2
+          owner: 5ac244f9bf3f9e322487c2f6
+          created_at: 2018-04-19T15:23:26.4510000Z
+          __v: 0
+        - _id: 5ad8b4768af0b6001443f484
+          payment: 4000
+          is_served: true
+          id_water: 2
+          owner: 5ac244f9bf3f9e322487c2f6
+          created_at: 2018-04-19T15:23:34.5160000Z
+          __v: 0
+        - _id: 5ad8b47e8af0b6001443f485
+          payment: 4000
+          is_served: true
+          id_water: 2
+          owner: 5ac244f9bf3f9e322487c2f6
+          created_at: 2018-04-19T15:23:42.2880000Z
+          __v: 0
+        - _id: 5ad8b48b8af0b6001443f486
+          payment: 4000
+          is_served: true
+          id_water: 1
+          owner: 5ac244f9bf3f9e322487c2f6
+          created_at: 2018-04-19T15:23:55.3770000Z
+          __v: 0
+        type: array
+        items:
+          $ref: '#/definitions/Order'
+    required:
+    - orders
+  Order:
+    title: Order
+    example:
+      _id: 5ad3734968f6ce1ff03ce5b1
+      payment: 4000
+      is_served: true
+      id_water: 1
+      owner: 5ac244f9bf3f9e322487c2f6
+      created_at: 2018-04-15T15:44:09.5530000Z
+      __v: 0
+    type: object
+    properties:
+      _id:
+        description: ''
+        example: 5ad3734968f6ce1ff03ce5b1
+        type: string
+      payment:
+        description: ''
+        example: 4000
+        type: integer
+        format: int32
+      is_served:
+        description: ''
+        example: true
+        type: boolean
+      id_water:
+        description: ''
+        example: 1
+        type: integer
+        format: int32
+      owner:
+        description: ''
+        example: 5ac244f9bf3f9e322487c2f6
+        type: string
+      created_at:
+        description: ''
+        example: 4/15/2018 3:44:09 PM
+        type: string
+      __v:
+        description: ''
+        example: 0
+        type: integer
+        format: int32
+    required:
+    - _id
+    - payment
+    - is_served
+    - id_water
+    - owner
+    - created_at
+    - __v
+  Response2:
+    title: Response2
+    example:
+      orders: []
+      _id: 5adb3b118daa8b2d749f6aa8
+      username: doanminhthuan274
+      password: thuan274
+      __v: 0
+    type: object
+    properties:
+      orders:
+        description: ''
+        example: []
+        type: array
+        items:
+          type: string
+      _id:
+        description: ''
+        example: 5adb3b118daa8b2d749f6aa8
+        type: string
+      username:
+        description: ''
+        example: doanminhthuan274
+        type: string
+      password:
+        description: ''
+        example: thuan274
+        type: string
+      __v:
+        description: ''
+        example: 0
+        type: integer
+        format: int32
+    required:
+    - orders
+    - _id
+    - username
+    - password
+    - __v
+  Response3:
+    title: Response3
+    example:
+      message: canceled order
+    type: object
+    properties:
+      message:
+        description: ''
+        example: canceled order
+        type: string
+    required:
+    - message
