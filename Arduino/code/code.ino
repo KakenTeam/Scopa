@@ -49,24 +49,31 @@ void setup()
     Serial.println("Set up pin mode 12");
     pinMode(12, OUTPUT);
     pinMode(13, OUTPUT);
+    digitalWrite(12, HIGH); 
+    digitalWrite(13, HIGH); 
 }
 
 void drop_water(long type_water) {
   Serial.println(type_water);
   if (type_water == 1) {
-    digitalWrite(12, HIGH);       // sets the digital pin 13 on
+    digitalWrite(12, LOW);       // sets the digital pin 13 on
     delay(5000);
-    digitalWrite(12, LOW);
+    digitalWrite(12, HIGH);
   }
   if (type_water == 2) {
-    digitalWrite(13, HIGH);       // sets the digital pin 13 on
+    digitalWrite(13, LOW);       // sets the digital pin 13 on
     delay(5000);
-    digitalWrite(13, LOW);
+    digitalWrite(13, HIGH);
   }
 }
 
 void loop()
 {
+  
+    if (!ioClient.connected()) {
+      Serial.println("Lost connect with io Client, reconnect");
+      ioClient.connect(host, port);
+    }
     //Khi bắt được bất kỳ sự kiện nào thì chúng ta có hai tham số:
     //  +RID: Tên sự kiện
     //  +RFull: Danh sách tham số được nén thành chuỗi JSON!
