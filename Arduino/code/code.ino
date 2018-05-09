@@ -3,11 +3,11 @@
 #include <ArduinoJson.h>
 
 SocketIOClient ioClient;
-const char* ssid = "Thanh Trang";
-const char* password = "minhthuan274";
+const char* ssid = "kuman";
+const char* password = "1042107Td";
 
-char host[] = "192.168.1.2";
-int port = 3001;
+char host[] = "scopa-production.herokuapp.com";
+int port = 80;
 
 //từ khóa extern: dùng để #include các biến toàn cục ở một số thư viện khác. Trong thư viện SocketIOClient có hai biến toàn cục
 // mà chúng ta cần quan tâm đó là

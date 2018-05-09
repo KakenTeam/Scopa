@@ -215,6 +215,7 @@ app.delete('/orders/:id', (req, res) => {
   var order_id = req.params.id;
   Order.findByIdAndRemove(order_id, function(err, order) {
     if (err) console.log(err);
+    serve_another_order();
     res.send({ message: "canceled order"});
   })
 })
