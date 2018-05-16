@@ -6,16 +6,14 @@
   "scripts": {
     "start": "node index.js"
   },
-  "engines": {
-    "node": "8.9.3"
-  },
   "dependencies": {
     "body-parser": "^1.18.2",
+    "cors": "^2.8.4",
     "express": "^4.14.1",
+    "ip": "^1.1.4",
     "lodash": "^4.17.5",
     "mongoose": "^5.0.11",
-    "socket.io": "^1.7.3",
-    "ip": "^1.1.4"
+    "socket.io": "^1.7.3"
   },
   "devDependencies": {
     "ws": "3.3.2"

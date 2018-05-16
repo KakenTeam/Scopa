@@ -4,7 +4,7 @@ var express   = require('express'),
     socketIO  = require('socket.io'),
     ip        = require('ip'),
     bodyParser = require('body-parser');
-
+var cors = require('cors');
 var app = express();
 var server = http.createServer(app);
 var io  = socketIO(server);
@@ -19,6 +19,7 @@ console.log("Server nodejs chay tai dia chi: " + ip.address() + ":" + PORT)
 server.listen(PORT, function () {
   console.log(`Server is up on ${PORT}`);
 });
+app.use(cors({origin: '*'}));
 app.use(bodyParser.json());
 
 function ParseJson(jsondata) {
