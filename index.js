@@ -184,10 +184,10 @@ app.post('/orders', (req, res) => {
 })
 
 app.get('/orders', (req, res) => {
-  var orders = Order.find({}).populate('owner', 'username')
+  var orders = Order.find({ is_served: true }).populate('owner', 'username')
   .exec(function (err, orders) {
     if (err) return res.sendStatus(400);
-    res.send(orders);
+    res.send({ orders: orders });
   });
 })
 
