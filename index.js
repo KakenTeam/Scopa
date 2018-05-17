@@ -222,13 +222,13 @@ app.delete('/orders/:id', (req, res) => {
   })
 })
 
-app.post('cards', (req, res) => {
+app.post('/cards', (req, res) => {
   var card = new Card();
   card.save();
   res.send({ message: "Created new card"});
 })
 
-app.post('send_money', (req, res) => {
+app.post('/send_money', (req, res) => {
   var user_id = req.params.user_id;
   var card_id = req.params.card_id;
   User.findById(req.params.id, function (err, user) {
