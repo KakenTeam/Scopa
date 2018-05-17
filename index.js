@@ -1,13 +1,13 @@
 const PORT = process.env.PORT || 3001;
-var express   = require('express'),
-    http      = require('http'),
-    socketIO  = require('socket.io'),
-    ip        = require('ip'),
-    bodyParser = require('body-parser');
+var express = require('express'),
+  http = require('http'),
+  socketIO = require('socket.io'),
+  ip = require('ip'),
+  bodyParser = require('body-parser');
 var cors = require('cors');
 var app = express();
 var server = http.createServer(app);
-var io  = socketIO(server);
+var io = socketIO(server);
 var _ = require('lodash');
 
 var { mongoose } = require('./db/mongoose');
@@ -20,7 +20,7 @@ console.log("Server nodejs chay tai dia chi: " + ip.address() + ":" + PORT)
 server.listen(PORT, function () {
   console.log(`Server is up on ${PORT}`);
 });
-app.use(cors({origin: '*'}));
+app.use(cors({ origin: '*' }));
 app.use(bodyParser.json());
 
 function ParseJson(jsondata) {
@@ -32,8 +32,8 @@ function ParseJson(jsondata) {
 }
 
 io.on('connection', function (socket) {
-  
-  console.log("Connected"); 
+
+  console.log("Connected");
 
   socket.on('connection', function (message) {
     console.log(message);
@@ -48,13 +48,13 @@ io.on('connection', function (socket) {
   })
 
   socket.on('disconnect', function () {
-    console.log("disconnect with arduino!") 
+    console.log("disconnect with arduino!")
   })
 });
 
 function serve_another_order() {
   console.log("Server another order");
-  Order.find({ is_served: false}).lean().exec(function(err, results) {
+  Order.find({ is_served: false }).lean().exec(function (err, results) {
     if (results.length > 0) {
       var json = {
         type_water: results[0].id_water,
@@ -71,7 +71,7 @@ function set_has_served_order(order_id) {
     { _id: order_id },
     {
       $set: {
-        is_served: true 
+        is_served: true
       }
     },
     { new: true }, function (err, doc) {
@@ -104,7 +104,7 @@ function set_state_arduino(value_state) {
 
 function getStateArduino() {
   var state_id = "5ac43bb01566211f10f38fac";
-  var state = State.findOne({ _id: state_id}, function(err, result) {
+  var state = State.findOne({ _id: state_id }, function (err, result) {
     if (err) {
       console.log("CAN NOT FIND");
     }
@@ -117,7 +117,7 @@ app.post('/users', (req, res) => {
     username: req.body.username,
     password: req.body.password
   });
-  
+
   user.save().then((doc) => {
     res.send(doc);
   }, (e) => {
@@ -126,76 +126,76 @@ app.post('/users', (req, res) => {
 });
 
 app.get('/users/:id', (req, res) => {
-  User.findById(req.params.id, function(err, user) {
-    res.send({ username: user.username});
+  User.findById(req.params.id, function (err, user) {
+    res.send({ username: user.username });
   })
 })
 
 app.post('/login', (req, res) => {
   var info = _.pick(req.body, ['username', 'password']);
   User.findOne(info)
-      .then(user => {
-        if (!user) {
-          return res.status(400).send({
-            message: "Invalid login credentials. Please try again."
-          });
-        }
-        res.send(user);
-      })
-      .catch((e) => {
-         res.status(400).send({
-           message: "Invalid login credentials. Please try again."
-         });
-      })
+    .then(user => {
+      if (!user) {
+        return res.status(400).send({
+          message: "Invalid login credentials. Please try again."
+        });
+      }
+      res.send(user);
+    })
+    .catch((e) => {
+      res.status(400).send({
+        message: "Invalid login credentials. Please try again."
+      });
+    })
 });
 
 app.post('/orders', (req, res) => {
 
   var owner = User.findOne({ _id: req.body.id_user })
-  .exec(function (err, user) {
-    if (err) {
-      res.status(400).send({ message: 'Not found user'});
-    } else {
-      var order = new Order({
-        id_water: req.body.id_water,
-        owner: user._id
-      })
-      order.save();
-      var json = {
-        type_water: req.body.id_water,
-        order_id: order._id
+    .exec(function (err, user) {
+      if (err) {
+        res.status(400).send({ message: 'Not found user' });
+      } else {
+        var order = new Order({
+          id_water: req.body.id_water,
+          owner: user._id
+        })
+        order.save();
+        var json = {
+          type_water: req.body.id_water,
+          order_id: order._id
+        }
+
+        var state_id = "5ac43bb01566211f10f38fac";
+        State.findOne({ _id: state_id }, function (err, result) {
+          if (err) {
+            console.log("CAN NOT FIND");
+          }
+          var state_arduino = result.is_busy;
+          if (state_arduino) {
+            res.status(200).send({ message: "wait", order_id: order._id });
+          } else {
+            set_state_arduino(true);
+            io.sockets.emit('drop_water', json);
+            res.status(200).send({ message: "Sent successfully" });
+          }
+        });
+
       }
-      
-      var state_id = "5ac43bb01566211f10f38fac";
-      State.findOne({ _id: state_id }, function (err, result) {
-        if (err) {
-          console.log("CAN NOT FIND");
-        }
-        var state_arduino = result.is_busy;
-        if (state_arduino) {
-          res.status(200).send({ message: "wait", order_id: order._id });
-        } else {
-          set_state_arduino(true);
-          io.sockets.emit('drop_water', json);
-          res.status(200).send({ message: "Sent successfully" });
-        }
-      });
-      
-    }
-  })
+    })
 })
 
 app.get('/orders', (req, res) => {
   var orders = Order.find({ is_served: true }).populate('owner', 'username')
-  .exec(function (err, orders) {
-    if (err) return res.sendStatus(400);
-    res.send({ orders: orders });
-  });
+    .exec(function (err, orders) {
+      if (err) return res.sendStatus(400);
+      res.send({ orders: orders });
+    });
 })
 
 app.get('/orders/:id/serve', (req, res) => {
   var order_id = req.params.id;
-  Order.findById(order_id, function(err, order) {
+  Order.findById(order_id, function (err, order) {
     var json = {
       type_water: order.id_water,
       order_id: order._id
@@ -207,38 +207,52 @@ app.get('/orders/:id/serve', (req, res) => {
 
 app.get('/users/:id/orders', (req, res) => {
   var user_id = req.params.id;
-  Order.find({ owner: user_id, is_served: true}).lean()
-       .exec(function(err, orders) {
-          res.send({ orders: orders } );
-       });
+  Order.find({ owner: user_id, is_served: true }).lean()
+    .exec(function (err, orders) {
+      res.send({ orders: orders });
+    });
 })
 
 app.delete('/orders/:id', (req, res) => {
   var order_id = req.params.id;
-  Order.findByIdAndRemove(order_id, function(err, order) {
+  Order.findByIdAndRemove(order_id, function (err, order) {
     if (err) console.log(err);
     serve_another_order();
-    res.send({ message: "canceled order"});
+    res.send({ message: "canceled order" });
   })
 })
 
 app.post('/cards', (req, res) => {
   var card = new Card();
   card.save();
-  res.send({ message: "Created new card"});
+  res.send({ message: "Created new card" });
 })
 
 app.post('/send_money', (req, res) => {
-  var user_id = req.params.user_id;
-  var card_id = req.params.card_id;
-  User.findById(req.params.id, function (err, user) {
-    card = Card.findById(card_id)
-    if (card) {
-      user.update({ total_amount: user.total_amount + card.amount });
-      Card.findByIdAndRemove(card_id)
+  var user_id = req.body.user_id;
+  var card_id = req.body.card_id;
+  console.log(user_id);
+  User.findById(user_id, function (err, user) {
+    if (err) {
+      return console.log(err);
     }
-    else {
-      res.status(404).send({ message: "Card not found"});
-    }
+    var total_amount = user.total_amount;
+    Card.findById(card_id, function (err ,card) {
+      if (!card) {
+        res.status(404).send({ message: "Card not found" });
+        return;
+      }
+      User.findByIdAndUpdate(user_id, { total_amount: total_amount + card.amount },
+        { new: true }, function (err, doc) {
+          if (err) {
+          }
+          Card.findByIdAndRemove(card_id, function (err, doc) {
+
+          });
+          res.send({ total_amount: doc.total_amount, username: doc.username });
+        });
+      }
+    )
+    
   })
 })

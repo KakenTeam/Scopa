@@ -17,6 +17,7 @@ var User = mongoose.model('User', {
   },
   total_amount: {
     type: Number, 
+    required: true,
     default: 0
   },
   orders: [{ type: Schema.Types.ObjectId, ref: 'Order' }]
