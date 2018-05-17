@@ -210,6 +210,7 @@ app.get('/orders/:id/serve', (req, res) => {
       type_water: order.id_water,
       order_id: order._id
     }
+    set_state_arduino(false);
     io.sockets.emit('drop_water', json);
     res.status(200).send({ message: "Sent" });
   })
