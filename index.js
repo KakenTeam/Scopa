@@ -127,7 +127,7 @@ app.post('/users', (req, res) => {
 
 app.get('/users/:id', (req, res) => {
   User.findById(req.params.id, function (err, user) {
-    res.send({ username: user.username });
+    res.send({ username: user.username, total_amount: user.total_amount });
   })
 })
 
