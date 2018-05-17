@@ -14,6 +14,7 @@ var { mongoose } = require('./db/mongoose');
 var { User } = require('./models/user');
 var { Order } = require('./models/order');
 var { State } = require('./models/state');
+var { Card } = require('./models/card');
 
 console.log("Server nodejs chay tai dia chi: " + ip.address() + ":" + PORT)
 server.listen(PORT, function () {
@@ -218,5 +219,26 @@ app.delete('/orders/:id', (req, res) => {
     if (err) console.log(err);
     serve_another_order();
     res.send({ message: "canceled order"});
+  })
+})
+
+app.post('cards', (req, res) => {
+  var card = new Card();
+  card.save();
+  res.send({ message: "Created new card"});
+})
+
+app.post('send_money', (req, res) => {
+  var user_id = req.params.user_id;
+  var card_id = req.params.card_id;
+  User.findById(req.params.id, function (err, user) {
+    card = Card.findById(card_id)
+    if (card) {
+      user.update({ total_amount: user.total_amount + card.amount });
+      Card.findByIdAndRemove(card_id)
+    }
+    else {
+      res.status(404).send({ message: "Card not found"});
+    }
   })
 })

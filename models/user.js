@@ -15,6 +15,10 @@ var User = mongoose.model('User', {
     trim: true,
     minlength: 4
   },
+  total_amount: {
+    type: Number, 
+    default: 0
+  },
   orders: [{ type: Schema.Types.ObjectId, ref: 'Order' }]
 });
 
