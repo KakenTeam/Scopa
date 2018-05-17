@@ -156,6 +156,9 @@ app.post('/orders', (req, res) => {
       if (err) {
         res.status(400).send({ message: 'Not found user' });
       } else {
+        if (user.total_amount < 4000) {
+          return res.status(403).send({ message: "Không đủ tiền" });
+        }
         var order = new Order({
           id_water: req.body.id_water,
           owner: user._id
@@ -165,6 +168,12 @@ app.post('/orders', (req, res) => {
           type_water: req.body.id_water,
           order_id: order._id
         }
+        var total_amount = user.total_amount - 4000;
+        User.findByIdAndUpdate(req.body.id_user, { total_amount: total_amount},
+          { new: true }, function (err, doc) {
+            if (err) {
+            }
+          });
 
         var state_id = "5ac43bb01566211f10f38fac";
         State.findOne({ _id: state_id }, function (err, result) {
@@ -177,7 +186,7 @@ app.post('/orders', (req, res) => {
           } else {
             set_state_arduino(true);
             io.sockets.emit('drop_water', json);
-            res.status(200).send({ message: "Sent successfully" });
+            res.status(200).send({ message: "Sent successfully", total_amount: total_amount });
           }
         });
 
@@ -237,7 +246,7 @@ app.post('/send_money', (req, res) => {
       return console.log(err);
     }
     var total_amount = user.total_amount;
-    Card.findById(card_id, function (err ,card) {
+    Card.findById(card_id, function (err, card) {
       if (!card) {
         res.status(404).send({ message: "Card not found" });
         return;
@@ -251,8 +260,8 @@ app.post('/send_money', (req, res) => {
           });
           res.send({ total_amount: doc.total_amount, username: doc.username });
         });
-      }
+    }
     )
-    
+
   })
 })
