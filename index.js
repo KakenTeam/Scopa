@@ -168,12 +168,6 @@ app.post('/orders', (req, res) => {
           type_water: req.body.id_water,
           order_id: order._id
         }
-        var total_amount = user.total_amount - 4000;
-        User.findByIdAndUpdate(req.body.id_user, { total_amount: total_amount},
-          { new: true }, function (err, doc) {
-            if (err) {
-            }
-          });
 
         var state_id = "5ac43bb01566211f10f38fac";
         State.findOne({ _id: state_id }, function (err, result) {
@@ -185,6 +179,12 @@ app.post('/orders', (req, res) => {
             res.status(200).send({ message: "wait", order_id: order._id });
           } else {
             set_state_arduino(true);
+            var total_amount = user.total_amount - 4000;
+            User.findByIdAndUpdate(req.body.id_user, { total_amount: total_amount },
+              { new: true }, function (err, doc) {
+                if (err) {
+                }
+              });
             io.sockets.emit('drop_water', json);
             res.status(200).send({ message: "Sent successfully", total_amount: total_amount });
           }
