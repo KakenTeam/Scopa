@@ -61,7 +61,7 @@ function serve_another_order() {
         order_id: results[0]._id
       }
       var channel_user = 'users' + results[0].owner;
-      console.log("EMIT CHANNEL USER");
+      console.log("EMIT CHANNEL USER " + channel_user);
       io.sockets.emit(channel_user, json);
     }
   });
