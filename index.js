@@ -254,20 +254,20 @@ app.get('/cards', (req, res) => {
 
 app.post('/cards', (req, res) => {
   var card = new Card({ amount: req.body.amount });
-  card.save();
-  res.send({ card: card });
+  card.save().then((card) => {
+    res.send({ card: card });
+  })
 })
 
 app.post('/send_money', (req, res) => {
   var user_id = req.body.user_id;
   var card_id = req.body.card_id;
-  console.log(user_id);
   User.findById(user_id, function (err, user) {
     if (err) {
       return console.log(err);
     }
     var total_amount = user.total_amount;
-    Card.findById(card_id, function (err, card) {
+    Card.findOne({ serial: card_id }, function (err, card) {
       if (!card) {
         res.status(404).send({ message: "Card not found" });
         return;
@@ -276,7 +276,7 @@ app.post('/send_money', (req, res) => {
         { new: true }, function (err, doc) {
           if (err) {
           }
-          Card.findByIdAndRemove(card_id, function (err, doc) {
+          Card.findOneAndRemove({ serial: card_id }, function (err, doc) {
 
           });
           res.send({ total_amount: doc.total_amount, username: doc.username });
