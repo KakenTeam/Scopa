@@ -128,7 +128,10 @@ app.post('/users', (req, res) => {
 
 app.get('/users/:id', (req, res) => {
   User.findById(req.params.id, function (err, user) {
-    res.send({ username: user.username, total_amount: user.total_amount });
+    if (!user) {
+      return res.status(404).send("Not found user");
+    }
+    res.send({ username: user.username, total_amount: user.total_amount, admin: user.admin, _id: user._id });
   })
 })
 
@@ -196,7 +199,7 @@ app.post('/orders', (req, res) => {
 })
 
 app.get('/orders', (req, res) => {
-  var orders = Order.find({ is_served: true }).populate('owner', 'username')
+  var orders = Order.find({ is_served: true }).sort( { created_at: -1 } ).populate('owner', 'username')
     .exec(function (err, orders) {
       if (err) return res.sendStatus(400);
       res.send({ orders: orders });
@@ -210,9 +213,18 @@ app.get('/orders/:id/serve', (req, res) => {
       type_water: order.id_water,
       order_id: order._id
     }
+    User.findById(order.owner, function(err, user) {
+      var total_amount = user.total_amount - 4000;
+      User.findByIdAndUpdate(user._id, { total_amount: total_amount },
+        { new: true }, function (err, doc) {
+          if (err) {
+          }
+          res.status(200).send({ message: "Sent", total_amount: doc.total_amount });
+        });
+    })
     set_state_arduino(true);
     io.sockets.emit('drop_water', json);
-    res.status(200).send({ message: "Sent" });
+    
   })
 })
 
@@ -233,10 +245,17 @@ app.delete('/orders/:id', (req, res) => {
   })
 })
 
+app.get('/cards', (req, res) => {
+  Card.find().lean()
+    .exec((err, cards) => {
+      res.send({ cards: cards })
+    })
+})
+
 app.post('/cards', (req, res) => {
-  var card = new Card();
+  var card = new Card({ amount: req.body.amount });
   card.save();
-  res.send({ message: "Created new card" });
+  res.send({ card: card });
 })
 
 app.post('/send_money', (req, res) => {

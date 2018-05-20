@@ -20,7 +20,12 @@ var User = mongoose.model('User', {
     required: true,
     default: 0
   },
-  orders: [{ type: Schema.Types.ObjectId, ref: 'Order' }]
+  orders: [{ type: Schema.Types.ObjectId, ref: 'Order' }],
+  admin: {
+    type: Boolean, 
+    default: false,
+    required: true
+  }
 });
 
 module.exports = { User }
