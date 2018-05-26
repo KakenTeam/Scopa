@@ -38,9 +38,6 @@ io.on('connection', function (socket) {
   socket.on('connection', function (message) {
     console.log(message);
     set_state_arduino(false);
-     Order.remove({ is_served: false}).exec(function(err, doc) {
-      console.log(" Remove all order is not served yet" , doc);
-    })
   });
 
   socket.on("done", (order_id) => {
@@ -288,4 +285,14 @@ app.post('/send_money', (req, res) => {
     )
 
   })
+})
+
+app.delete('/remove_order_not_served', (req, res) => {
+   Order.remove({ is_served: false}).exec(function(err, doc) {
+     if (err) {
+       console.log(err);
+     }
+
+     res.send({message: "Deleted all"})
+   })
 })
