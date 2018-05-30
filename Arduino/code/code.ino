@@ -26,8 +26,8 @@ void setup()
     Serial.begin(115200);
     delay(10);
     Serial.print("Connect to "); Serial.println(ssid);
-    WiFi.begin(ssid, password);
-    while (WiFi.status() != WL_CONNECTED) { //Thoát ra khỏi vòng
+    WiFi.begin(ssid, password);                 //bat dau ket noi wifi voi ssid va password
+    while (WiFi.status() != WL_CONNECTED) {     //Đang trong vòng lặp đến khi kết nối wifi thành công
         delay(500);
         Serial.print('.');
     }
@@ -36,7 +36,7 @@ void setup()
     Serial.println(F("Di chi IP cua ESP8266 (Socket Client ESP8266): "));
     Serial.println(WiFi.localIP());
 
-    if (!ioClient.connect(host, port)) {
+    if (!ioClient.connect(host, port)) {        //Kiểm tra đã kết đã kết nối đến socket server chưa
         Serial.println(F("Ket noi den socket server that bai!"));
         return;
     }
@@ -44,24 +44,24 @@ void setup()
     //Khi đã kết nối thành công
     if (ioClient.connected()) {
         //Thì gửi sự kiện ("connection") đến Socket server ahihi.
-        ioClient.send("connection", "message", "Connected !!!!");
+        ioClient.send("connection", "message", "Connected !!!!"); // Gửi sự kiện "connection" đến server với thông điệp là kết nối thành công
     }
     Serial.println("Set up pin mode 12");
-    pinMode(12, OUTPUT);
+    pinMode(12, OUTPUT);                    // đặt cộng 12 là output
     pinMode(13, OUTPUT);
-    digitalWrite(12, HIGH); 
+    digitalWrite(12, HIGH);                 // đặt chế độ 12 là HIGH
     digitalWrite(13, HIGH); 
 }
 
-void drop_water(long type_water) {
-  Serial.println(type_water);
+void drop_water(long type_water) {          // Hàm thực hiện tín hiệu đến các cổng với mục đính trả nước
+  Serial.println(type_water);               // IN ra loại nước nhận được từ server
   if (type_water == 1) {
-    digitalWrite(12, LOW);       // sets the digital pin 13 on
-    delay(5000);
+    digitalWrite(12, LOW);                  // sets the digital pin 13 on
+    delay(5000);                            // Bơm trong vòng 5s
     digitalWrite(12, HIGH);
   }
   if (type_water == 2) {
-    digitalWrite(13, LOW);       // sets the digital pin 13 on
+    digitalWrite(13, LOW);                  // sets the digital pin 13 on
     delay(5000);
     digitalWrite(13, HIGH);
   }
@@ -70,26 +70,26 @@ void drop_water(long type_water) {
 void loop()
 {
   
-    if (!ioClient.connected()) {
+    if (!ioClient.connected()) {            // Kiểm tra coi có mất kết nối socket từ server ko 
       Serial.println("Lost connect with io Client, reconnect");
-      ioClient.connect(host, port);
+      ioClient.connect(host, port);         // Kết nối lại 
     }
     //Khi bắt được bất kỳ sự kiện nào thì chúng ta có hai tham số:
     //  +RID: Tên sự kiện
     //  +RFull: Danh sách tham số được nén thành chuỗi JSON!
-    if (ioClient.monitor()) {
-          if (RID == "drop_water") {
+    if (ioClient.monitor()) {               // neu nhan emit tu server 
+          if (RID == "drop_water") {        // neu server emit thong diep la drop water 
             // parse json to get type water
-            StaticJsonBuffer<200> jsonBuffer;
-            JsonObject& root = jsonBuffer.parseObject(Rfull);
-            long type_water = root["type_water"];
-            const char* order_id = root["order_id"];
+            StaticJsonBuffer<200> jsonBuffer; 
+            JsonObject& root = jsonBuffer.parseObject(Rfull);  // Lọc dữ liệu từ server dưới dạng  { "type_water": number, "order_id": "" }
+
+            long type_water = root["type_water"];              // Lấy dữ liệu gán vào type_water
+            const char* order_id = root["order_id"];            
             Serial.println("Nhan order gui nuoc ");
             Serial.println(order_id);
-            drop_water(type_water);
-            ioClient.send("done", "message", order_id);
-            // reset value 
-            RID = "";
+            drop_water(type_water);                           // truyền thông tin id nước cần trả
+            ioClient.send("done", "message", order_id);       // truyền thông tin tới server là đã trả nước xong kèm theo order_id của đơn hàng
+            RID = "";                                         // Reset giá trị tránh lỗi
             Rfull = "";
           }
     }
